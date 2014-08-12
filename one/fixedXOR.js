@@ -5,6 +5,6 @@ module.exports = function(hex1,hex2){
   for(var i=0, j=buf1.length; i<j; i++){
     buf1[i] = buf1[i]^buf2[i];
   }
-  return buf1.toString('hex');
+  return buf1;
 };
 
