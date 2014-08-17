@@ -1,4 +1,4 @@
-var xor = require('./fixedXOR.js');
+var xor = require('../enc/fixedXOR.js');
 var scores = new Array(256);
 var worthy = toObj('ETAOINSHRDLU'.split(''));
 

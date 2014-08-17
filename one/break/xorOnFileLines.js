@@ -1,6 +1,6 @@
 var fs = require('fs');
 var split = require('split');
-var cipher = require('./xorCipher');
+var cipher = require('./singleByteXor');
 
 module.exports = function (file,cb){
   var lineResults = [];
