@@ -1,10 +1,12 @@
 module.exports = function(data, blockLength){
-  blockLength = +blockLength/2;
+  blockLength = +blockLength;
   var buf = new Buffer(data, 'hex');
-  var outBufs = new Array(data.length/blockLength);
-  console.log(data.length,blockLength,outBufs.length);
+  var hexLength = data.length/2;
+  var blockCount = hexLength/blockLength; /*length of transposed buffers*/
+  var outBufs = new Array(blockLength);
+
   for(var i=0; i < outBufs.length; i++){
-    outBufs[i] = new Buffer(blockLength);
+    outBufs[i] = new Buffer(blockCount);
   } 
   for(i=0; i<buf.length; i+=blockLength){
     for(var j=0; j<outBufs.length;  j++){
@@ -13,3 +15,5 @@ module.exports = function(data, blockLength){
   }
   return outBufs;
 };
+
+
