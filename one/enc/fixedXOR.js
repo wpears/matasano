@@ -6,9 +6,11 @@ module.exports = function(hex1,hex2){
   if(hex2 instanceof Buffer) buf2 = hex2;
   else buf2 = new Buffer(hex2,'hex');
 
+  var outbuf = new Buffer(buf1.length);
+
   for(var i=0, j=buf1.length; i<j; i++){
-    buf1[i] = buf1[i]^buf2[i];
+    outbuf[i] = buf1[i]^buf2[i];
   }
-  return buf1;
+  return outbuf;
 };
 
