@@ -2,7 +2,7 @@ var xor = require('../enc/fixedXOR.js');
 var scores = new Array(256);
 var worthy = toObj('ETAOINSHRDLU'.split(''));
 
-
+//str can be a hex string or buffer
 module.exports = function(str){
   var strArr = new Array(str.length/2 + 1);
 
