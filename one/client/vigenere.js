@@ -2,12 +2,17 @@ var fs = require('fs');
 var transpose = require('../break/transpose');
 var single = require('../break/singleByteXor');
 
-fs.readFile('../data/q6.txt',function(err,data){
-  if(err)throw err;
-  var singleDigitArr = transpose(data, 10);
-  var cipher = [];
-  singleDigitArr.forEach(function(v){
-    cipher.push(single(v).character);
+module.exports = function(cb){
+
+  fs.readFile('../data/q6.txt',function(err,data){
+    if(err)throw err;
+    var keySize = 20;
+    var singleDigitArr = transpose(data, keySize);
+    var cipher = new Buffer(keySize);
+    singleDigitArr.forEach(function(v,i){
+      cipher[i] = single(v).character;
+    });
+    console.log(cipher);
+    cb(cipher);
   });
-  console.log(cipher.join(''));
-});
+}

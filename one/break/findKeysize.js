@@ -3,10 +3,10 @@ var hamming = require('./hamming');
 
 module.exports = function (str, scoringFn, params){
   var start = params&&params.start || 2;
-  var end = params&&params.end || 40;
-  var comparisons = params&&params.comparisons || 2;
-  var min = Infinity;
+  var end = params&&params.end || 60;
+  var comparisons = params&&params.comparisons || 4;
   var keysize;
+  var scores = []; 
 
   for(var i=start; i <=end; i++){
     var strings = getHexSubstrings(str,i,comparisons*2);   
@@ -16,10 +16,7 @@ module.exports = function (str, scoringFn, params){
     }
     score/=comparisons;
     score/=i;
-    if(score < min){
-      min = score; 
-      keysize = i;
-    }
+    scores.push({size:i,score:score});
   }
-  return keysize;
+  return scores.sort(function(a,b){return a.score - b.score});
 };

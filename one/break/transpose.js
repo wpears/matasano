@@ -1,8 +1,8 @@
 module.exports = function(data, blockLength){
   blockLength = +blockLength;
   var buf = new Buffer(data, 'hex');
-  var hexLength = data.length/2;
-  var blockCount = hexLength/blockLength; /*length of transposed buffers*/
+  var byteLength = buf.length;
+  var blockCount = byteLength/blockLength; /*length of transposed buffers*/
   var outBufs = new Array(blockLength);
 
   for(var i=0; i < outBufs.length; i++){
