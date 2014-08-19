@@ -8,7 +8,7 @@ module.exports = function(str){
   if(str instanceof Buffer) buf = str;
   else buf = new Buffer(str);
 
-  for(var i = 0; i < 256; i++){
+  for(var i = 1; i < 256; i++){
     var res = xor(buf,makeBuffer(i,buf.length)).toString();
     scores[i] = {str:res,score:score(res),character:i};
   }

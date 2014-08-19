@@ -10,6 +10,7 @@ module.exports = function(cb){
     var singleDigitArr = transpose(data, keySize);
     var cipher = new Buffer(keySize);
     singleDigitArr.forEach(function(v,i){
+      console.log(single(v),'\n');
       cipher[i] = single(v).character;
     });
     console.log(cipher);
