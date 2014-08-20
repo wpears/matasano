@@ -1,8 +1,8 @@
 var repeating = require('../enc/repeatingKeyXor');
 var vig = require('./vigenere');
-var fs = require('fs');
+var read64 = require('./read64');
 
-fs.readFile('../data/q6.txt', function(err,data){
+read64('../data/q6.txt', function(err,data){
   
   function runRepeating(key){
     console.log(repeating(data,key).toString());

@@ -1,19 +1,18 @@
-var fs = require('fs');
+var read64 = require('./read64');
 var transpose = require('../break/transpose');
 var single = require('../break/singleByteXor');
 
 module.exports = function(cb){
 
-  fs.readFile('../data/q6.txt',function(err,data){
+  read64('../data/q6.txt',function(err,data){
     if(err)throw err;
-    var keySize = 20;
+    var keySize = 29;
     var singleDigitArr = transpose(data, keySize);
     var cipher = new Buffer(keySize);
     singleDigitArr.forEach(function(v,i){
-      console.log(single(v),'\n');
       cipher[i] = single(v).character;
     });
-    console.log(cipher);
+    console.log("KEY: %s\n",cipher.toString());
     cb(cipher);
   });
 }
