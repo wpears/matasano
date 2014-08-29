@@ -1,0 +1,8 @@
+Wow.. my original plan was to attempt to break the ecb after detecting which one it was..
+but it seems I'll just have to detect it.
+
+This should be pretty easy.. provivded there is enough repetition in the actual line
+
+Loop through first, attempting to locate a 16 byte match.
+
+If one and only one exists... that's probably the one.
