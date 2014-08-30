@@ -1,9 +1,13 @@
 var crypto = require('crypto');
 
-module.exports = function(block){
+module.exports = function(block,key){
+  if(!key) key = 'YELLOW SUBMARINE';
   var decipher = crypto.createDecipheriv('aes-128-ecb',
-      new Buffer('YELLOW SUBMARINE'),
+      new Buffer(key),
       new Buffer(0));
+      
+  var data = decipher.update(block);
+  var fin = decipher.final();
 
-  return decipher.update(block,'','utf8') + decipher.final('utf8');
+  return Buffer.concat([data,fin],data.length+fin.length); 
 };

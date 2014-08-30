@@ -1,14 +1,15 @@
 var crypto = require('crypto');
 
-module.exports = function(block){
+module.exports = function(block,key){
   if(!(block instanceof Buffer)) block = new Buffer(block)
+  if(!key) key = 'YELLOW SUBMARINE';
+
   var cipher = crypto.createCipheriv('aes-128-ecb',
-      new Buffer('2b7e151628aed2a6abf7158809cf4f3c','hex'),
+      new Buffer(key),
       new Buffer(0));
- console.log(block,block.length); 
-  var data = cipher.update(block,'','hex');
-  var fin = cipher.final('hex');
-  console.log(data,data.length)
-  console.log(fin,fin.length)
-  return data + fin
+   
+  var data = cipher.update(block);
+  var fin = cipher.final();
+
+  return Buffer.concat([data,fin],data.length+fin.length);
 };
