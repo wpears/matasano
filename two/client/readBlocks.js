@@ -12,9 +12,8 @@ readBlocks.prototype._transform = function(chk, enc, cb){
   var block = this.block;
   var extraLen = this.extra.length;
   var bufStart = block - extraLen;
-  var bufEnd = chk.length - bufStart;
 
-  bufEnd = bufEnd- bufEnd%block;
+  var bufEnd = chk.length - chk.length%block;
   
   this.push(Buffer.concat([this.extra,chk.slice(0,bufStart)],block));
   
@@ -22,14 +21,13 @@ readBlocks.prototype._transform = function(chk, enc, cb){
    while(i < bufEnd){
      this.push(chk.slice(i,i+=block));
    }
-   
    this.extra = chk.slice(i);
    
    cb(); 
 }
 
 readBlocks.prototype._flush = function(cb){
-  if(this.extra.length) this.push(extra);
+  if(this.extra.length) this.push(this.extra);
   cb();
 }
 
