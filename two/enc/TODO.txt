@@ -1,0 +1,1 @@
+applyInBlocks fn to complement readBlocks. accepts str and fn to call
