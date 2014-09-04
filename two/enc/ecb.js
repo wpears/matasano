@@ -1,18 +1,13 @@
-var crypto = require('crypto');
+var applyInBlocks = require('./applyInBlocks');
+var blockecb = require('./blockecb');
 
-module.exports = function(block,key){
-  if(!(block instanceof Buffer)) block = new Buffer(block)
-  if(!key) key = new Buffer('YELLOW SUBMARINE');
-  if(!(key instanceof Buffer)) key = new Buffer(key)
+module.exports = function(data, key){
+  if(!(data instanceof Buffer)) data = new Buffer(data);
+  if(!(key instanceof Buffer)) key = new Buffer(key);
 
-  var cipher = crypto.createCipheriv('aes-128-ecb',
-      key,
-      new Buffer(0));
-   
-  var data = cipher.update(block);
-  var fin = cipher.final();
-  var len = data.length+fin.length;
+  function appFn(block){
+    return blockecb(block,key);
+  }
 
-  return Buffer.concat([data,fin],len).slice(0,16);
-  
-};
+  return applyInBlocks(data,16,appFn);
+}
