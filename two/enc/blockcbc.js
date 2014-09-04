@@ -1,5 +1,5 @@
 var fs = require('fs');
-var ecb = require('./ecb');
+var ecb = require('./blockecb');
 var xor = require('../../one/enc/fixedXOR');
 
 module.exports = function(data, key, IV){
