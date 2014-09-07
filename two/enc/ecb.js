@@ -9,5 +9,5 @@ module.exports = function(data, key){
     return blockecb(block,key);
   }
 
-  return applyInBlocks(data,16,appFn);
+  return Buffer.concat(applyInBlocks(data,16,appFn));
 }

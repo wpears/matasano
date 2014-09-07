@@ -13,5 +13,5 @@ module.exports = function(data, key, IV){
     return IV = blockcbc(block,key, IV);
   }
   
-  return applyInBlocks(data,len,applyFn); 
+  return Buffer.concat(applyInBlocks(data,len,applyFn)); 
 };

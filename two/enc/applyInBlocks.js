@@ -6,5 +6,5 @@ module.exports = function(buf,len,fn){
   while(i < buf.length){
     pieces.push(fn(buf.slice(i,i+=len)));
   }
-  return Buffer.concat(pieces);
+  return pieces;
 };
