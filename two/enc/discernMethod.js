@@ -29,7 +29,6 @@ function checkForDup(enc){
 
 module.exports = function (oracle) {
   var badEnc = oracle(buf);
-  console.log(badEnc.slice(16,buf.length));
   var dup = checkForDup(badEnc);
   
   if(dup){
