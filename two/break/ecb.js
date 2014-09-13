@@ -1,4 +1,5 @@
 var crypto = require('crypto');
+var enc_blockecb = require('../enc/blockecb');
 
 module.exports = function(block,key){
   if(!key) key = 'YELLOW SUBMARINE';
@@ -7,8 +8,10 @@ module.exports = function(block,key){
   var decipher = crypto.createDecipheriv('aes-128-ecb',
       key,
       new Buffer(0));
-  if(block.length === 16){
-      block = Buffer.concat([block,new Buffer('60fa36707e45f499dba0f25b922301a5','hex')],32);
+  if(block.length % 16===0){
+      var empty = new Buffer(16);
+      for(var i=0;i<empty.length;i++)empty[i] = 16;
+      block = Buffer.concat([block,enc_blockecb(empty,key)]);
   }     
   var data = decipher.update(block);
   var fin = decipher.final();
