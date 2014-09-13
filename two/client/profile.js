@@ -3,7 +3,7 @@ module.exports = function(email){
   var str = '';
   var obj = {
     email : email,
-    uid : Math.round(Math.random()*1e9),
+    uid : 1e8,
     role : 'user'
   }
   for (var key in obj){
