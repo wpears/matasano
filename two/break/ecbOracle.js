@@ -1,37 +1,16 @@
 var oracle = require('../enc/12oracle');
 var detect = require('../enc/discernMethod');
+var getSize = require('./getBlockSize');
 
 module.exports = function(str){
-  var size = getSize();
-  console.log('Size: ',size);
-  
   if(detect(oracle)){ //ecb
+    var size = getSize();
+    console.log('Size: ',size);
+
     return getSecret(size);
   }
   
 };
-
-function getSize(){
-  var started = 0;
-  var bytes = 'A';
-  var nibble = 'A';
-  var count = 0;
-  var lastLen = 0;
-  
-  while(1){ 
-    var output = oracle(bytes); 
-    if(lastLen){
-      if(output.length === lastLen){
-        if(started) count++;
-      }else{
-       if(started)return ++count;
-       else started = 1; 
-      }
-    }
-    lastLen = output.length;
-    bytes +=nibble;
-  }  
-}
 
 function getSecret(size){
   var len = size - 1;
@@ -51,6 +30,7 @@ function getSecret(size){
   return known;
 }
 
+
 function getFirstBytes(len,known){
   var str = new Array(len +  1).join('!');
   var buf = new Buffer(str+known+"X");
@@ -59,6 +39,7 @@ function getFirstBytes(len,known){
   return findByte(obj,str,known);
 }
 
+
 function getBytes(len,known){
   var str = new Array(len +  1).join('!');
   var buf = new Buffer(known.slice(-15)+"X");
@@ -66,6 +47,7 @@ function getBytes(len,known){
    
   return findByte(obj,str,known); 
 }
+
 
 function makeByteObj(buf){
   var obj = {};
@@ -76,6 +58,7 @@ function makeByteObj(buf){
   return obj;
 }
 
+
 function findByte(obj,str,known){
   var low = ((known.length/16) >> 0) * 16;
   var thisByte = obj[oracle(new Buffer(str)).slice(low,low+16).toString()];
@@ -83,6 +66,3 @@ function findByte(obj,str,known){
   byteBuf[0] = thisByte;
   return byteBuf.toString();
 }
-//Rollin' in my 5.
-//feed 15 -> 0 building object from known.slice(-15).. get the right block
-//
