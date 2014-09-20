@@ -1,10 +1,10 @@
 var oracle = require('../enc/12oracle');
 var detect = require('../enc/discernMethod');
-var getSize = require('./getBlockSize');
+var getSize = require('./getblocksize');
 
-module.exports = function(str){
+module.exports = function(){
   if(detect(oracle)){ //ecb
-    var size = getSize();
+    var size = getSize(oracle);
     console.log('Size: ',size);
 
     return getSecret(size);
