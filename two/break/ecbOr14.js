@@ -1,6 +1,7 @@
-var oracle = require('../enc/12oracle');
+var oracle = require('../enc/14oracle');
 var detect = require('../enc/discernMethod');
 var getSize = require('./getBlockSize');
+var bufEqual = require('bufEqual');
 
 module.exports = function(str){
   if(detect(oracle)){ //ecb
@@ -34,8 +35,8 @@ function getSecret(size){
 }
 
 
-function getFirstBytes(len,known){
-  var str = new Array(len +  1).join('!');
+function getFirstBytes(len,known){ //str len decreases in loop as more bytes are
+  var str = new Array(len +  1).join('!'); //exposed by the oracle
   var buf = new Buffer(str+known+"X");
   var obj = makeByteObj(buf);  
   
@@ -56,7 +57,12 @@ function makeByteObj(buf){
   var obj = {};
   for(var i = 0; i < 256; i++){
     buf[buf.length-1] = i;
-    obj[oracle(buf).slice(0,16).toString()] = i;//get block encrypted under the key
+    var result = oracle(buf);
+    if(bufEqual(result.slice(0,16),result.slice(16,32))){
+      obj[result.slice(32,48).toString()] = i;
+    }else{
+      i--;
+    }
   }
   return obj;
 }
