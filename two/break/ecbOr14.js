@@ -27,13 +27,14 @@ function getSecret(size){
     console.log(known);
   } 
 
-  /*while (known.length < totalLen){
+  while (known.length < totalLen){
     len = size -1;
     while(len >= 0){
       known+=getBytes(len,known);
       len--;
+      console.log(known);
     }
-  }*/
+  }
   
   return known;
 }
@@ -74,6 +75,7 @@ function makeByteObj(buf){
 
 function findByte(obj,str,known){
   var low = ((known.length/16) >> 0) * 16 + 32;
+  console.log(low);
   var buf = new Buffer(prePost+str);
   var result = oracle(buf);
   while(!bufEqual(result.slice(0,16),result.slice(16,32))){
