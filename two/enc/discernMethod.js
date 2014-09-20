@@ -1,16 +1,9 @@
 var apply = require('./applyInBlocks');
+var bufEqual = require('bufEqual');
 
 var buf = new Buffer("PEARSALLPEARSALLPEARSALLPEARSALLPEARSALLPEARSALLPEARSALLPEARSALL");
 
-function bufEqual(a,b){
-  if(!(a instanceof Buffer)||!(b instanceof Buffer)) return 0;
-  if(a.length !== b.length) return 0;
-  
-  for(var i=0; i < a.length; i++){
-    if(a[i] !== b[i]) return 0;
-  }
-  return 1;
-}
+
 
 
 function checkForDup(enc){
