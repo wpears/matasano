@@ -3,6 +3,8 @@ var detect = require('../enc/discernMethod');
 var bufEqual = require('bufEqual');
 
 var prePost = "PEARSALLPEARSALLPEARSALLPEARSALL"
+var targetBlock;
+
 module.exports = function(){
   if(detect(oracle)){ //ecb
     var size = 16; 
@@ -15,24 +17,39 @@ function getSecret(size){
   var known = '';
 
   var totalLen=Infinity;
-  for(var i=0;i<256;i++){
+  var targetBlocks = [];
+  for(var i=0;i<1024;i++){
     var oLen = oracle(new Buffer(0)).length;
     if(oLen < totalLen) totalLen = oLen;
+
+    var result = oracle(new Buffer(prePost));
+    var first = result.slice(0,16);
+    var second = result.slice(16,32);
+    if(bufEqual(first,second)){
+      targetBlocks.push(first)
+    }
   }
+  
+  targetBlocks.sort();
+  targetBlock = targetBlocks[targetBlocks.length/2>>0];
   console.log(totalLen);
 
+  var next;
+
   while(len >= 0){
-    known+=getFirstBytes(len,known);
+    next = getFirstBytes(len,known);
+    known+=next;
     len--;
-    console.log(known);
+    process.stdout.write(next);
   } 
 
   while (known.length < totalLen){
     len = size -1;
     while(len >= 0){
-      known+=getBytes(len,known);
+      next = getBytes(len,known);
+      known+= next;
       len--;
-      console.log(known);
+      process.stdout.write(next);
     }
   }
   
@@ -63,7 +80,7 @@ function makeByteObj(buf){
   for(var i = 0; i < 256; i++){
     buf[buf.length-1] = i;
     var result = oracle(buf);
-    if(bufEqual(result.slice(0,16),result.slice(16,32))){
+    if(bufEqual(result.slice(0,16),targetBlock)){
       obj[result.slice(32,48).toString()] = i;
     }else{
       i--;
@@ -75,10 +92,9 @@ function makeByteObj(buf){
 
 function findByte(obj,str,known){
   var low = ((known.length/16) >> 0) * 16 + 32;
-  console.log(low);
   var buf = new Buffer(prePost+str);
   var result = oracle(buf);
-  while(!bufEqual(result.slice(0,16),result.slice(16,32))){
+  while(!bufEqual(result.slice(0,16),targetBlock)){
     result = oracle(buf);
   }
   var thisByte = obj[result.slice(low,low+16).toString()];
