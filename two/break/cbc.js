@@ -1,11 +1,7 @@
-var ecb = require('./ecb');
-var xor = require('../../one/enc/fixedXOR');
+/*
+ *decrypt the current block with the key under "ecb" (just a block)
+ *get the plaintext my xoring with the last ciphertext or IV
+ * */
 
-module.exports = function(data, key, IV){
-  if(!(data instanceof Buffer)) data = new Buffer(data);
-  if(!(key instanceof Buffer)) key = new Buffer(key);
-  if(!(IV instanceof Buffer)) IV = new Buffer(IV);
-  
-  var decrypted = ecb(data, key);
-  return xor(decrypted, IV);
-};
+
+
