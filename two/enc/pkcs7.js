@@ -1,14 +1,16 @@
-module.exports = function(block, len){
-  
-  var buf = new Buffer(len);
-  var pad = len - block.length;
-
-  for(var i=0; i < block.length; i++){
-    buf[i] = block[i]; 
+module.exports = function(input,len){
+  if(!len) len = 16; 
+  var pad = len - input.length%len;
+  if(!pad) pad = 16;
+  var inpBuf = new Buffer(input);
+  var buf = new Buffer(input.length+pad); 
+   
+  for(var i=0;i<inpBuf.length;i++){
+    buf[i] = inpBuf[i];
   }
-  
-  for(; i < len; i++){
-   buf[i] = pad; 
+
+  for(var end=i+len; i < end; i++){
+    buf[i]=pad; 
   }
 
   return buf;
