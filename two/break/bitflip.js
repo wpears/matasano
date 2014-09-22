@@ -1,5 +1,11 @@
 /*
  *XOR by admin=true;....
+ LastCiph XOR currDec = PT
+ currDec = Last XOR PT
+
+ ;admin=true;xxxx = LastCiph XOR LastCiph XOR currDec XOR currDec XOR ;admin
+ meaning set LastCiph to currDec XOR ;admin=true;xxxx
+ 
  * */
 
 var pre = "comment1=cooking%20MCs;userdata=";
@@ -30,7 +36,6 @@ function encrypt (input){
 
 function decrypt (enc){
   var dec = decCbc(enc, key, IV).toString();
-  console.log(dec)
-  return /;admin=true;/.test(dec);
-
+  console.log( /;admin=true;/.test(dec));
+  return dec; 
 }
