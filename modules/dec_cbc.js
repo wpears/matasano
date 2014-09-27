@@ -2,7 +2,7 @@
  *decrypt the current block with the key under "ecb" (just a block)
  *get the plaintext my xoring with the last ciphertext or IV
  * */
-var ecb = require('ecb');
+var ecb = require('dec_ecb');
 var xor = require('xor');
 
 module.exports = function (enc, key, IV){

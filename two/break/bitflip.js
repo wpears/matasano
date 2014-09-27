@@ -13,9 +13,9 @@ var post = ";comment2=%20like%20a%20pound%20of%20bacon";
 var crypto = require('crypto');
 
 var pk = require('../enc/pkcs7');
-var cbc = require('../enc/cbc');
+var cbc = require('enc_cbc');
 
-var decCbc = require('./cbc');
+var decCbc = require('dec_cbc');
 
 var key = crypto.randomBytes(16);
 var IV = crypto.randomBytes(16);
