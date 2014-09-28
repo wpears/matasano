@@ -21,9 +21,10 @@ module.exports = {
 
   cipher : function(){
     var str = strs[Math.random()*strs.length>>0];
-    return enc(pkcs7(str),key,IV);
+    return enc(pkcs7.pad(str),key,IV);
   },
-  check: function(){
+  check: function(ct){
+    return pkcs7.check(dec(ct,key,IV));  
   }
 
 }

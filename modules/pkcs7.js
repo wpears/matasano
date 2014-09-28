@@ -26,13 +26,13 @@ function check (block, blockLength){
   var last = block[len];
   var count = 1;
 
-  if (last === 0 || last > 16) paddingException();
-  if (last === 1) return unpad(block,len);
+  if (last === 0 || last > 16) return false;//paddingException();
+  if (last === 1) return true/*unpad(block,len)*/;
 
   while (block[--len] === last){
-    if(++count >= last) return unpad(block,len); 
+    if(++count >= last) return true/*unpad(block,len)*/; 
   }
-  paddingException();
+  return false;//paddingException();
 }
 
 function paddingException(){
