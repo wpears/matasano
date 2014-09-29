@@ -25,6 +25,7 @@ module.exports = {
   },
   check: function(ct){
     return pkcs7.check(dec(ct,key,IV));  
-  }
+  },
+  IV:IV
 
 }
