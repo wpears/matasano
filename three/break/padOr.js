@@ -19,12 +19,13 @@ while (start < cipher.length){
       // c1mod == i, p2mod = padding
       // c1mod ^ p2mod = i2 <-- padding oracle leaks p2mod, thus i2
       // c1 ^ i2 = p2
+      console.log("Valid");
       var interState = i ^ padding;
       plaintext[currIndex] = interState^orig;
       currBlock[currIndex] = interState^++padding;
       currIndex--;
     }
-    console.log(plaintext);
+    console.log(plaintext.join(''));
   }
 }
 console.log(serv.check(cipher.slice(0,16)));

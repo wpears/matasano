@@ -13,15 +13,15 @@ module.exports = function (enc, key, IV){
   if(!(IV instanceof Buffer)) IV = new Buffer(IV);
 
   
-  var plaintext = '';
+  var plaintext = [];
   var last = IV;
   for(var i=0;i<enc.length;i+=16){
     var ciphertext = enc.slice(i,i+16);
     var dec = ecb(ciphertext,key)
-    plaintext += xor(dec,last).toString();
+    plaintext.push(xor(dec,last));
     last = ciphertext;
   }
-  return plaintext;
+  return Buffer.concat(plaintext);
 
   
 }

@@ -18,7 +18,6 @@ function pad(input,len){
 
 function check (block, blockLength){
   if(!blockLength) blockLength = 16;
-
   if(!block||block.length%blockLength !== 0) throw new Error("Invalid block.");
   if(!(block instanceof Buffer)) block = new Buffer(block);
 
