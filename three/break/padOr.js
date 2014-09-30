@@ -41,6 +41,7 @@ function processBlock(block,loc){
       }
       if(i===255){
         console.log("uhoh");
+        console.log(block.slice(12,16));
         return;
       }
     }
