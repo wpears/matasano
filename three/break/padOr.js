@@ -23,11 +23,10 @@ function processBlock(block,loc){
   var padding = 1;
 
   while (index >= 0){
-    console.log(index);
     var orig = block[index];
     for(var i=0;i<256;i++){
       block[index] = i;
-      if(serv.check(block)){
+      if(serv.check(block,16-index)){
         // the padding is valid;
         // c1mod == i, p2mod == padding
         // c1mod ^ p2mod = i2 <-- padding oracle leaks p2mod, thus i2
@@ -40,8 +39,7 @@ function processBlock(block,loc){
         break;
       }
       if(i===255){
-        console.log("uhoh");
-        console.log(block.slice(12,16));
+        console.log("Uh-oh, need to check padding better.");
         return;
       }
     }
@@ -55,4 +53,3 @@ function pad(block,interBlock,padding){
    curr--;
  }  
 }
-console.log(serv.check(cipher.slice(0,16)));

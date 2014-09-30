@@ -16,7 +16,7 @@ function pad(input,len){
   return buf;
 }
 
-function check (block, blockLength){
+function check (block, blockLength,expectedLength){
   if(!blockLength) blockLength = 16;
   if(!block||block.length%blockLength !== 0) throw new Error("Invalid block.");
   if(!(block instanceof Buffer)) block = new Buffer(block);
@@ -26,10 +26,21 @@ function check (block, blockLength){
   var count = 1;
 
   if (last === 0 || last > 16) return false;//paddingException();
-  if (last === 1) return true/*unpad(block,len)*/;
+  if (last === 1){
+    if(expectedLength){
+      if(expectedLength!==1)return false/*unpad(block,len)*/;
+    }
+    return true;
+  }
+   
 
   while (block[--len] === last){
-    if(++count >= last) return true/*unpad(block,len)*/; 
+    if(++count >= last){
+      if(expectedLength){
+        if(expectedLength!==count)return false;
+      }
+      return true/*unpad(block,len)*/; 
+    }
   }
   return false;//paddingException();
 }

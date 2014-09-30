@@ -23,8 +23,8 @@ module.exports = {
     var str = strs[Math.random()*strs.length>>0];
     return enc(pkcs7.pad(str),key,IV);
   },
-  check: function(ct){
-    return pkcs7.check(dec(ct,key,IV));  
+  check: function(ct,expected){
+    return pkcs7.check(dec(ct,key,IV), 16, expected);  
   },
   IV:IV
 
