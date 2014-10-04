@@ -32,7 +32,7 @@ describe('Set 1', function(){
         );
     });
   });
-  describe('Question 4', function(){
+  /*describe('Question 4', function(){
     it('should read a file, split it into lines, and discover which has been ciphered with a single byte', function(done){
       var xorOnLines = require('../one/break/xorOnFileLines');
       var data = 'one/data/q4.txt';
@@ -44,9 +44,36 @@ describe('Set 1', function(){
 
       xorOnLines(data,lineCb);
     });
-  });
-  
+  });*/
 
+  describe('Question 5', function(){
+    it('encrypts under a repeating key', function(){
+      var enc = require('../one/enc/repeatingKeyXor');
+      assert.equal(
+        enc("Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal", "ICE").toString('hex'),
+        '0b3637272a2b2e63622c2e69692a23693a2a3c6324202d623d63343c2a26226324272765272a282b2f20430a652e2c652a3124333a653e2b2027630c692b20283165286326302e27282f'
+        );
+    });
+  });
+
+  describe('Question 6', function(){
+    it('computes correct Hamming distances', function(){
+      var hamming = require('../one/break/hamming');
+      assert(hamming('this is a test','wokka wokka!!!')===37);
+    });
+
+    it('finds the proper key size', function(done){
+      var findKey = require('../one/break/findKeysize');
+      var hamming = require('../one/break/hamming');
+      var read64 = require('read64');
+
+      read64('one/data/q6.txt',function(err,data){
+        var keyObj = findKey(data,hamming,{start:3,comparisons:8})[0];
+        assert(keyObj.size === 29, 'Key size is 29.');
+        done();
+      });
+    });
+  });
 
 });
 
