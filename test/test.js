@@ -32,6 +32,19 @@ describe('Set 1', function(){
         );
     });
   });
+  describe('Question 4', function(){
+    it('should read a file, split it into lines, and discover which has been ciphered with a single byte', function(done){
+      var xorOnLines = require('../one/break/xorOnFileLines');
+      var data = 'one/data/q4.txt';
+      
+      function lineCb(data){
+        assert.equal(data.str, 'Now that the party is jumping\n');
+        done();
+      }
+
+      xorOnLines(data,lineCb);
+    });
+  });
   
 
 

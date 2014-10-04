@@ -9,7 +9,7 @@ module.exports = function(str){
   var buf;
   var scores = new Array(256);
   if(str instanceof Buffer) buf = str;
-  else buf = new Buffer(str);
+  else buf = new Buffer(str,'hex');
 
   for(var i = 1; i < 256; i++){
     var res = xor(buf,makeBuffer(i,buf.length)).toString();
