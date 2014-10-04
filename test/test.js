@@ -23,5 +23,17 @@ describe('Set 1', function(){
     });
   });
 
+  describe('Question 3', function(){
+    it('should decode strings ciphered with a single byte', function(){
+      var singleByte = require('../one/break/singleByteXor');
+      assert.equal(
+        singleByte(new Buffer('1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736','hex')).str,
+        'cOOKING\u0000mc\u0007S\u0000LIKE\u0000A\u0000POUND\u0000OF\u0000BACON'
+        );
+    });
+  });
+  
+
+
 });
 
