@@ -1,6 +1,7 @@
-module.exports = function(data, blockLength){
+module.exports = function(buf, blockLength){
   blockLength = +blockLength;
-  var buf = new Buffer(data, 'hex');
+  if(!(buf instanceof Buffer)) buf = new Buffer(buf, 'hex');
+
   var byteLength = buf.length;
   var blockCount = byteLength/blockLength; /*length of transposed buffers*/
   var outBufs = new Array(blockLength);

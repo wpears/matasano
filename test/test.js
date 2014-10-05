@@ -69,9 +69,28 @@ describe('Set 1', function(){
 
       read64('one/data/q6.txt',function(err,data){
         var keyObj = findKey(data,hamming,{start:3,comparisons:8})[0];
-        assert(keyObj.size === 29, 'Key size is 29.');
+        assert(keyObj.size === 29);
+        console.log('Key size: %d',keyObj.size);
         done();
       });
+    });
+
+    it('transposes bits from the same positions modulo the key size, creating single-key XORed blocks', function(){
+      var transpose = require('../one/break/transpose');
+      var bufEqual = require('bufEqual');
+      assert(bufEqual(transpose('12345678',2)[0], new Buffer('1256','hex')));
+      assert(bufEqual(transpose('12345678',2)[1], new Buffer('3478','hex')));
+    });
+
+    it('gets the repeating key cipher',function(done){
+      var vigenere = require('../one/client/vigenere');
+
+      function checkKey(data){
+        assert.equal(data.toString(),'tERmINAtOR x\u001a bring tHE nOIsE');
+        done();
+      }
+      
+      vigenere(checkKey,'one/data/q6.txt'); 
     });
   });
 

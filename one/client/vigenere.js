@@ -2,9 +2,9 @@ var read64 = require('./read64');
 var transpose = require('../break/transpose');
 var single = require('../break/singleByteXor');
 
-module.exports = function(cb){
-
-  read64('../data/q6.txt',function(err,data){
+module.exports = function(cb,file){
+  file =  file || '../data/q6.txt';
+  read64(file, function(err,data){
     if(err)throw err;
     var keySize = 29;
     var singleDigitArr = transpose(data, keySize);
