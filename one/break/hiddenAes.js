@@ -8,7 +8,7 @@ fs.readFile('../data/q8.txt',function(err,data){
   var decipher = crypto.createDecipheriv('aes-128-ecb',new Buffer('YELLOW SUBMARINE'), new Buffer(0));
 
   for(var i=0;i<data.length;i+=16){
-    console.log(decipher.update(data,'','utf8'));
+    decipher.update(data,'','utf8');
   }
   decipher.final()
 })

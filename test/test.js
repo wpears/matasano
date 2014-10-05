@@ -1,7 +1,7 @@
 var assert = require('assert');
 
-describe('Set 1', function(){
-  
+describe('\n************************ Set 1 ************************\n\n', function(){
+
   describe('Question 1', function(){
     it('should convert hex to base64', function(){
       var hTo64 = require('../one/enc/hexTo64');
@@ -11,7 +11,7 @@ describe('Set 1', function(){
         );
     });
   });
-  
+
   describe('Question 2', function(){
     it('should xor two equal-length buffers', function(){
       var xor = require('xor');
@@ -19,7 +19,7 @@ describe('Set 1', function(){
       var xord = xor(new Buffer('\x05\x1f'),new Buffer('\x07\x20'));
       assert(
         bufEqual(xord,new Buffer('\x02\x3f'))
-      );
+        );
     });
   });
 
@@ -34,17 +34,17 @@ describe('Set 1', function(){
   });
   /*describe('Question 4', function(){
     it('should read a file, split it into lines, and discover which has been ciphered with a single byte', function(done){
-      var xorOnLines = require('../one/break/xorOnFileLines');
-      var data = 'one/data/q4.txt';
-      
-      function lineCb(data){
-        assert.equal(data.str, 'Now that the party is jumping\n');
-        done();
-      }
+    var xorOnLines = require('../one/break/xorOnFileLines');
+    var data = 'one/data/q4.txt';
 
-      xorOnLines(data,lineCb);
+    function lineCb(data){
+    assert.equal(data.str, 'Now that the party is jumping\n');
+    done();
+    }
+
+    xorOnLines(data,lineCb);
     });
-  });*/
+    });*/
 
   describe('Question 5', function(){
     it('encrypts under a repeating key', function(){
@@ -86,12 +86,12 @@ describe('Set 1', function(){
       var vigenere = require('../one/client/vigenere');
 
       function checkKey(data){
-        assert.equal(data.toString(),'tERmINAtOR x\u001a bring tHE nOIsE');
-        done();
+      assert.equal(data.toString(),'tERmINAtOR x\u001a bring tHE nOIsE');
+      done();
       }
-      
+
       vigenere(checkKey,'one/data/q6.txt'); 
-    });*/
+      });*/
   });
 
   describe('Question 7', function(){
@@ -104,6 +104,27 @@ describe('Set 1', function(){
       var data = Buffer.concat([cipher.update(secret),cipher.final()]);
       assert.equal(secret,aes128ecb(data));
     });
+  });
+
+  describe('Question 8', function(){
+    it('looks for ecb encoded messages by sniffing out repeated blocks',function(done){
+      var ecbSearch = require('../one/break/hexecb');
+
+      function checkIndex(index,ciphertext){
+        assert.equal(132,index);
+        done();
+      }
+
+      ecbSearch('one/data/q8.txt',checkIndex);
+    });
+  });
+});
+
+describe('\n************************ Set 2 ************************\n\n',function(){
+  describe('Question 9', function(){
+    it('implements PKCS#7 padding',function(){
+
+    }); 
   });
 
 });
