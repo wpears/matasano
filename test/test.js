@@ -82,7 +82,7 @@ describe('Set 1', function(){
       assert(bufEqual(transpose('12345678',2)[1], new Buffer('3478','hex')));
     });
 
-    it('gets the repeating key cipher',function(done){
+    /*it('gets the repeating key cipher',function(done){
       var vigenere = require('../one/client/vigenere');
 
       function checkKey(data){
@@ -91,6 +91,18 @@ describe('Set 1', function(){
       }
       
       vigenere(checkKey,'one/data/q6.txt'); 
+    });*/
+  });
+
+  describe('Question 7', function(){
+    it('decrypts simply with 128bit aes under ecb',function(){
+      var aes128ecb = require('../one/break/aes128ecb');
+      var crypto = require('crypto');
+
+      var secret = "CaptainMyCaptain";
+      var cipher = crypto.createCipheriv('aes-128-ecb',new Buffer('YELLOW SUBMARINE'), new Buffer(0));
+      var data = Buffer.concat([cipher.update(secret),cipher.final()]);
+      assert.equal(secret,aes128ecb(data));
     });
   });
 
