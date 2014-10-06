@@ -145,11 +145,34 @@ describe('\n************************ Set 2 ************************\n\n',functio
       assert.equal(0,discern(function(){return "PEAyuooSALLProouRSALLPEuuRSALLPEwqeSALL"}));
     });
   });
-  describe('Question 12', function(){
+ /* describe('Question 12', function(){
     it('breaks ecb, a byte at a time', function(){
       this.timeout(10000);
       var breakEcb = require('../two/break/ecbOracle');
       assert.equal('Rollin', breakEcb().slice(0,6));
+    });
+  });*/
+
+  describe('Question 13', function(){
+    it('breaks ecb by moving a block strategically to taint a function\'s input',function(){
+      var admin = require('../two/client/admin'); 
+      assert.equal(admin().role, 'admin');
+    });
+  });
+
+  /*describe('Question 14', function(){
+    it('breaks ecb, a byte at a time, with random bytes prepended', function(){
+      this.timeout(200000);
+      var breakEcb = require('../two/break/ecbOr14');
+      assert.equal('Rollin', breakEcb().slice(0,6));
+    });
+  });*/
+
+  describe('Question 15', function(){
+    it('validates pkcs#7',function(){
+      var pk = require('pkcs7');
+      assert(pk.check('validpadding\x04\x04\x04\x04'));
+      assert(!pk.check('invalidpadding12'));
     });
   });
 });
