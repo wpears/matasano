@@ -129,6 +129,14 @@ describe('\n************************ Set 2 ************************\n\n',functio
       assert(bufEqual(pk.pad('PEARSALLPEARSALL'),new Buffer('PEARSALLPEARSALL\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10')));
     }); 
   });
+  
+  describe('Question 10', function(){
+    it('should cbc encrypt and decrypt', function(){
+      var enc = require('enc_cbc');
+      var dec = require('dec_cbc');
+      assert.equal("SOMEBITOFTEXTEH?",dec(enc("SOMEBITOFTEXTEH?")).toString()); 
+    });
+  });
 
 });
 
