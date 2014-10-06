@@ -184,3 +184,27 @@ describe('\n************************ Set 2 ************************\n\n',functio
   });
 });
 
+describe('**********************Set 3**************************',function(){
+  describe('Question 17',function(){
+    it('breaks CBC with a padding oracle',function(){
+      var padOr = require('../three/break/padOr');
+      var obj = {
+      'MDAwMDAwTm93IHRoYXQgdGhlIHBhcnR5IGlzIGp1bXBpbmc=':1,
+      'MDAwMDAxV2l0aCB0aGUgYmFzcyBraWNrZWQgaW4gYW5kIHRoZSBWZWdhJ3MgYXJlIHB1bXBpbic=':1,
+      'MDAwMDAyUXVpY2sgdG8gdGhlIHBvaW50LCB0byB0aGUgcG9pbnQsIG5vIGZha2luZw==':1,
+      'MDAwMDAzQ29va2luZyBNQydzIGxpa2UgYSBwb3VuZCBvZiBiYWNvbg==':1,
+      'MDAwMDA0QnVybmluZyAnZW0sIGlmIHlvdSBhaW4ndCBxdWljayBhbmQgbmltYmxl':1,
+      'MDAwMDA1SSBnbyBjcmF6eSB3aGVuIEkgaGVhciBhIGN5bWJhbA==':1,
+      'MDAwMDA2QW5kIGEgaGlnaCBoYXQgd2l0aCBhIHNvdXBlZCB1cCB0ZW1wbw==':1,
+      'MDAwMDA3SSdtIG9uIGEgcm9sbCwgaXQncyB0aW1lIHRvIGdvIHNvbG8=':1,
+      'MDAwMDA4b2xsaW4nIGluIG15IGZpdmUgcG9pbnQgb2g=':1,
+      'MDAwMDA5aXRoIG15IHJhZy10b3AgZG93biBzbyBteSBoYWlyIGNhbiBibG93':1,
+      };
+      var plaintext = padOr();
+      var trueEnd = plaintext.length-plaintext[plaintext.length-1];
+      plaintext= plaintext.slice(0,trueEnd);
+      assert(obj[plaintext.toString()]);
+    });
+  });
+});
+
