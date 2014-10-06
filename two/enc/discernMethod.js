@@ -24,10 +24,5 @@ module.exports = function (oracle) {
   var badEnc = oracle(buf);
   var dup = checkForDup(badEnc);
   
-  if(dup){
-   console.log('ecb! %d duplicate blocks',dup);
-   return 1;
-  }
-  console.log('cbc, no duplicate blocks');
-  return 0;
+  return +dup;
 };

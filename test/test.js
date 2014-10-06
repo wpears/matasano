@@ -146,10 +146,10 @@ describe('\n************************ Set 2 ************************\n\n',functio
     });
   });
   describe('Question 12', function(){
-    it('should detect if something ecb or not', function(){
-      var discern = require('../two/enc/discernMethod');
-      assert.equal(1,discern(function(){return "PEARSALLPEARSALLPEARSALLPEARSALL"})); 
-      assert.equal(0,discern(function(){return "PEAyuooSALLProouRSALLPEuuRSALLPEwqeSALL"}));
+    it('breaks ecb, a byte at a time', function(){
+      this.timeout(10000);
+      var breakEcb = require('../two/break/ecbOracle');
+      assert.equal('Rollin', breakEcb().slice(0,6));
     });
   });
 });
