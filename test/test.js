@@ -138,5 +138,19 @@ describe('\n************************ Set 2 ************************\n\n',functio
     });
   });
 
+  describe('Question 11', function(){
+    it('should detect if something ecb or not', function(){
+      var discern = require('../two/enc/discernMethod');
+      assert.equal(1,discern(function(){return "PEARSALLPEARSALLPEARSALLPEARSALL"})); 
+      assert.equal(0,discern(function(){return "PEAyuooSALLProouRSALLPEuuRSALLPEwqeSALL"}));
+    });
+  });
+  describe('Question 12', function(){
+    it('should detect if something ecb or not', function(){
+      var discern = require('../two/enc/discernMethod');
+      assert.equal(1,discern(function(){return "PEARSALLPEARSALLPEARSALLPEARSALL"})); 
+      assert.equal(0,discern(function(){return "PEAyuooSALLProouRSALLPEuuRSALLPEwqeSALL"}));
+    });
+  });
 });
 
