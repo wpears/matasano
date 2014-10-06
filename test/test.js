@@ -123,7 +123,10 @@ describe('\n************************ Set 1 ************************\n\n', functi
 describe('\n************************ Set 2 ************************\n\n',function(){
   describe('Question 9', function(){
     it('implements PKCS#7 padding',function(){
-
+      var pk = require('pkcs7');
+      var bufEqual = require('bufEqual');
+      assert(bufEqual(pk.pad('Wyatt Pearsall'),new Buffer('Wyatt Pearsall\x02\x02')));
+      assert(bufEqual(pk.pad('PEARSALLPEARSALL'),new Buffer('PEARSALLPEARSALL\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10')));
     }); 
   });
 
