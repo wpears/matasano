@@ -29,13 +29,12 @@ module.exports = {
 function encrypt (input){
   var encoded = input.split(';').join('%3B').split('=').join('%3D');
   var fullString = pre + encoded + post;
-  var padded = pk(fullString);  
+  var padded = pk.pad(fullString);  
 
   return cbc(padded,key,IV);
 }
 
 function decrypt (enc){
   var dec = decCbc(enc, key, IV).toString();
-  console.log( /;admin=true;/.test(dec));
   return dec; 
 }

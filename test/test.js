@@ -175,5 +175,12 @@ describe('\n************************ Set 2 ************************\n\n',functio
       assert(!pk.check('invalidpadding12'));
     });
   });
+  
+  describe('Question 16', function(){
+    it('injects unexpected data into cbc by poisoning ciphertexts',function(){
+      var bf = require('../two/client/bf');
+      assert(bf().match(/;admin=true/));
+    });
+  });
 });
 
