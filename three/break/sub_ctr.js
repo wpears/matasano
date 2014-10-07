@@ -1,4 +1,7 @@
 var ctr = require('./ctr');
+var xor = require('xor');
+
+var vig = require('../../one/client/vig');
 
 var strs=['SSBoYXZlIG1ldCB0aGVtIGF0IGNsb3NlIG9mIGRheQ==',
 'Q29taW5nIHdpdGggdml2aWQgZmFjZXM=',
@@ -42,13 +45,22 @@ var strs=['SSBoYXZlIG1ldCB0aGVtIGF0IGNsb3NlIG9mIGRheQ==',
 'QSB0ZXJyaWJsZSBiZWF1dHkgaXMgYm9ybi4=']
 
 var ciphers=[];
+var c1 = [];
 strs.forEach(function(v){
-  ciphers.push(ctr(new Buffer(v,'base64')));
+  var raw = new Buffer(v,'base64');
+  var enc = ctr(raw);
+  ciphers.push(enc.slice(0,21));
+  c1.push(enc.slice(0,21));
 });
-var buf = Buffer.concat(ciphers);
+var b1 = Buffer.concat(c1);
 
-console.log(ciphers);
+var keyFront = vig(b1,21);
+keyFront[6]--;
 
+console.log(keyFront);
+c1.forEach(function(v){
+  console.log(xor(v,keyFront).toString());
+});
 
 
 
