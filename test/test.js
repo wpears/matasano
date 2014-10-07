@@ -184,7 +184,7 @@ describe('\n************************ Set 2 ************************\n\n',functio
   });
 });
 
-describe('**********************Set 3**************************',function(){
+describe('\n**********************Set 3**************************\n\n',function(){
   /*describe('Question 17',function(){
     it('breaks CBC with a padding oracle',function(){
       var padOr = require('../three/break/padOr');
@@ -216,7 +216,7 @@ describe('**********************Set 3**************************',function(){
   });
 });
 
-describe('*******************Modules***********************', function(){
+describe('\n*******************Modules***********************\n\n', function(){
   describe('justText', function(){
     it('takes non-ASCII characters out of a buffer', function(){
       var justText = require('justText');    
@@ -231,7 +231,25 @@ describe('*******************Modules***********************', function(){
       assert(bufEqual(textCleaned,textBuf)); 
     });
   });
-
+  
+  describe('block ecb', function(){
+    it('performs ecb encryption on a single block', function(){
+      var enc = require('blockecb');
+      var buf = new Buffer("I'm back and I'm");
+      var bufEqual = require('bufEqual');
+      assert(bufEqual(enc(buf),new Buffer('CRIwqt4+szDbqkNY+I0qbD','base64')));
+    });
+  });
+  
+  describe('block cbc', function(){
+    it('performs cbc encryption on a single block', function(){
+      var enc = require('blockcbc');
+      var buf =  new Buffer('abraham lincoln!');
+      var bufEqual = require('bufEqual');
+      assert(bufEqual(enc(buf), new Buffer('GUA8Wra/mOKA4Tt7W2qUIw==','base64')));
+    });
+  });
+  
   describe('ECB', function(){
     it('ecb encryption and decryption', function(){
       var enc = require('enc_ecb');
@@ -247,4 +265,5 @@ describe('*******************Modules***********************', function(){
       assert.equal("PEARSALLPEARSALL",dec(enc("PEARSALLPEARSALL")).toString()); 
     });
   });
+
 });
