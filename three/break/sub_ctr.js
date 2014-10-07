@@ -45,5 +45,10 @@ var ciphers=[];
 strs.forEach(function(v){
   ciphers.push(ctr(new Buffer(v,'base64')));
 });
+var buf = Buffer.concat(ciphers);
 
 console.log(ciphers);
+
+
+
+
