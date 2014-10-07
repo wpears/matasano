@@ -185,7 +185,7 @@ describe('\n************************ Set 2 ************************\n\n',functio
 });
 
 describe('**********************Set 3**************************',function(){
-  describe('Question 17',function(){
+  /*describe('Question 17',function(){
     it('breaks CBC with a padding oracle',function(){
       var padOr = require('../three/break/padOr');
       var obj = {
@@ -205,6 +205,30 @@ describe('**********************Set 3**************************',function(){
       plaintext= plaintext.slice(0,trueEnd);
       assert(obj[plaintext.toString()]);
     });
+  });*/
+  describe('Question 18', function(){
+    it('decrypts with CTR mode',function(){
+      var ctr = require('../three/break/ctr');
+      var justText = require('justText');
+      var inp = new Buffer("L77na/nrFsKvynd6HzOoG7GHTLXsTVu9qvY/2syLXzhPweyyMTJULu/6/kXX0KSvoOLSFQ==","base64");
+      assert.equal(justText(ctr(inp)).toString(),"Yo, VIP Let's kick it Ice, Ice, baby Ice, Ice, baby ");
+    });
   });
 });
 
+describe('*******************Modules***********************', function(){
+  describe('justText', function(){
+    it('takes non-ASCII characters out of a buffer', function(){
+      var justText = require('justText');    
+      var bufEqual = require('bufEqual');
+      var text = "Wyatt Pearsall"; 
+      var textBuf = new Buffer(text);
+      var junk = new Buffer(3);
+      junk[0] = 2;
+      junk[1] = 9;
+      junk[2] = 0;
+      var textCleaned = justText(Buffer.concat([textBuf,junk]));
+      assert(bufEqual(textCleaned,textBuf)); 
+    });
+  });
+});

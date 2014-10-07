@@ -6,6 +6,6 @@ module.exports = function(buf){
     var currByte = buf[i];
     if( currByte > 31 && currByte < 128) justText[curr++] = currByte;
   }
-  
+
   return justText.slice(0,curr);
 };
