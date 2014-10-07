@@ -214,6 +214,12 @@ describe('\n**********************Set 3**************************\n\n',function(
       assert.equal(justText(ctr(inp)).toString(),"Yo, VIP Let's kick it Ice, Ice, baby Ice, Ice, baby ");
     });
   });
+  describe('Question 19', function(){
+    it('arduously and circuitously gets the key from repeated nonce CTR',function(){
+      var sub_ctr = require('../three/break/sub_ctr');
+      assert.equal(sub_ctr().toString('base64'),'VtHLS4+CRsLDryN9TDPDUvLMTPy4TTL+7/o/s4/OUzgNgK7rMXc=');
+    });
+  });
 });
 
 describe('\n*******************Modules***********************\n\n', function(){
