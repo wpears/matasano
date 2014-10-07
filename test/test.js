@@ -231,4 +231,20 @@ describe('*******************Modules***********************', function(){
       assert(bufEqual(textCleaned,textBuf)); 
     });
   });
+
+  describe('ECB', function(){
+    it('ecb encryption and decryption', function(){
+      var enc = require('enc_ecb');
+      var dec = require('dec_ecb');
+      assert.equal("PEARSALLPEARSALL",dec(enc("PEARSALLPEARSALL")).toString()); 
+    });
+  });
+  
+  describe('CBC', function(){
+    it('cbc encryption and decryption', function(){
+      var enc = require('enc_cbc');
+      var dec = require('dec_cbc');
+      assert.equal("PEARSALLPEARSALL",dec(enc("PEARSALLPEARSALL")).toString()); 
+    });
+  });
 });
