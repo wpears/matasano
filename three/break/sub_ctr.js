@@ -1,38 +1,24 @@
+var stat_ctr = require('./stat_ctr'); 
+var space = require('spaceNonText');
+var xor = require('xor');
+
 module.exports = function(file,cb){
-  var ctr = require('./ctr');
-  var space = require('spaceNonText');
-  var xor = require('xor');
-  var vig = require('../../one/client/vig');
-  var fs = require('fs');
+  
+  stat_ctr(file,getKeyFront);
 
-  fs.readFile(file,function(err,data){
-    if(err) throw err;
-
-    var strs = data.toString().split('\n');  
-    strs.pop();
-    
-    var ciphers=[];
-    var c1 = [];
-    var c2 = [];
-    strs.forEach(function(v){
-      var raw = new Buffer(v,'base64');
-      var enc = ctr(raw);
-      ciphers.push(enc);
-      c1.push(enc.slice(0,21));
-      c2.push(enc.slice(0,38));
-    });
-
-    var b1 = Buffer.concat(c1);
-    var keyFront = vig(b1,21);
-    keyFront[6]--;
-
+  function getKeyFront(keyObj){
+    var keyFront = keyObj.keyFront;
+    var ciphers = keyObj.ciphers;
+    keyFront[6]--; 
+console.log(keyFront.length);
 
     //21 is "when young and beautiful"
     //ful -> 70 85 76
-    var ful = new Buffer(3);
-    ful[0] = ciphers[21][21]^70;
-    ful[1] = ciphers[21][22]^85;
-    ful[2] = ciphers[21][23]^76;
+    var iful = new Buffer(4);
+    iful[0] = ciphers[21][20]^73;
+    iful[1] = ciphers[21][21]^70;
+    iful[2] = ciphers[21][22]^85;
+    iful[3] = ciphers[21][23]^76;
 
     // 39 BORN
     var n = new Buffer(1);
@@ -69,16 +55,12 @@ module.exports = function(file,cb){
     nS[0] = ciphers[37][36]^78;
     nS[1] = ciphers[37][37]^32;
 
-
-    keyFront = Buffer.concat([keyFront,ful,n,rly,rn,t,nd,ead,nS]);
-
-    cb(keyFront);
-    /*c2.forEach(function(v,i){
+    keyFront = Buffer.concat([keyFront,iful,n,rly,rn,t,nd,ead,nS]);
+    ciphers.forEach(function(v,i){
       console.log(i,space(xor(v,keyFront)).toString());
-      });*/
-  })
+    });
+    cb(keyFront);   
+  }
 }
-
-
 
 

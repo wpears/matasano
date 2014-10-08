@@ -219,7 +219,7 @@ describe('\n**********************Set 3**************************\n\n',function(
       var sub_ctr = require('../three/break/sub_ctr');
       sub_ctr('three/data/19.txt',cb);
       function cb(key){
-        assert.equal(key.toString('base64'),'VtHLS4+CRsLDryN9TDPDUvLMTPy4TTL+7/o/s4/OUzgNgK7rMXc=');
+        assert.equal(key.toString('base64'),'VtHLS4+iZsLjjwNdbDPDUtLMbNy4TTL+7/o/s4/OUzgNgK7rMXc=');
         done();
       }
     });
