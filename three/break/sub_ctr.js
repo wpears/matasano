@@ -10,7 +10,6 @@ module.exports = function(file,cb){
     var keyFront = keyObj.keyFront;
     var ciphers = keyObj.ciphers;
     keyFront[6]--; 
-console.log(keyFront.length);
 
     //21 is "when young and beautiful"
     //ful -> 70 85 76
@@ -56,9 +55,9 @@ console.log(keyFront.length);
     nS[1] = ciphers[37][37]^32;
 
     keyFront = Buffer.concat([keyFront,iful,n,rly,rn,t,nd,ead,nS]);
-    ciphers.forEach(function(v,i){
+    /*ciphers.forEach(function(v,i){
       console.log(i,space(xor(v,keyFront)).toString());
-    });
+    });*/
     cb(keyFront);   
   }
 }
