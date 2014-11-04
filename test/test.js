@@ -230,7 +230,7 @@ describe('\n**********************Set 3**************************\n\n',function(
       var stat_ctr = require('../three/break/stat');
       stat_ctr('three/data/q20.txt',cb);
       function cb(key){
-        assert.equal(key.toString('base64').slice(0,10),'dtHLa6+DZu');
+        assert.equal(key.toString('base64').slice(0,10),'dtHLa6+CZu');
         done();
       }
     });
