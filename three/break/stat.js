@@ -15,34 +15,45 @@ function getKey(obj){
   keyFront[48] = ciphers[15][48]^69;
   keyFront[49] = ciphers[15][49]^65;
   
-  var a = new Buffer(20); 
-  a[0] = ciphers[5][53]^69; 
-  a[1] = ciphers[59][54]^101;
-  //scene of a crime
-  a[2] = ciphers[16][55]^114
-  a[3] = ciphers[16][56]^105
-  a[4] = ciphers[16][57]^109
-  a[5] = ciphers[16][58]^101
+  function fillIns (arr){
+    var a = new Buffer(arr.length);
+    arr.forEach(function(v,i){
+      var terms = v.split(',')
+      a[i] = ciphers[terms[0]][terms[1]]^terms[2]
+    })
+    keyFront = Buffer.concat([keyFront,a]);
+  }
 
- //reincarnated  
-  a[6] = ciphers[22][59]^97
-  a[7] = ciphers[22][60]^114
-  a[8] = ciphers[22][61]^110
-  a[9] = ciphers[22][62]^97
-  a[10] = ciphers[22][63]^116
-  a[11] = ciphers[22][64]^101
-  a[12] = ciphers[22][65]^100
+  var arr = [
+    '5,53,69 ',
+    '59,54,101',
+    //scene of a crime
+    '16,55,114',
+    '16,56,105',
+    '16,57,109',
+    '16,58,101',
+    
+    //reincarnated
+    '22,59,97',
+    '22,60,114',
+    '22,61,110',
+    '22,62,97',
+    '22,63,116',
+    '22,64,101',
+    '22,65,100',
+    
+    //resusitation
+    '34,66,105',
+    '34,67,116',
+    '34,68,97',
+    '34,69,116',
+    '34,70,105',
+    '34,71,111',
+    '34,72,110'
+  ]
 
-  //resusitation  
-  a[13] = ciphers[34][66]^105;
-  a[14] = ciphers[34][67]^116;
-  a[15] = ciphers[34][68]^97;
-  a[16] = ciphers[34][69]^116;
-  a[17] = ciphers[34][70]^105;
-  a[18] = ciphers[34][71]^111;
-  a[19] = ciphers[34][72]^110;
+  fillIns(arr);
    
-  keyFront = Buffer.concat([keyFront,a]);
   ciphers.forEach(function(v,i){
     console.log(i,space(xor(v,keyFront)).toString());
   });
