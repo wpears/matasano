@@ -230,7 +230,7 @@ describe('\n**********************Set 3**************************\n\n',function(
       var stat_ctr = require('../three/break/stat');
       stat_ctr('three/data/q20.txt',cb);
       function cb(key){
-        assert.equal(key.toString('base64').slice(0,10),'dtHLa6+CZu');
+        assert.equal(key.toString('base64'),'dtHLa6+CZuLDjwN9TBPjcvLMTNyYTTL+z/ofs4/ucxgtgI7LMXsXS+PalwaS3ITt4aCrFUnablXRTGZnyW+lsICG2zanEVn4L5iX4+fRk+WMoZvI3zlXupKIQAqDDCE692GPKM9D+rs1PG1Ys9ZTfpCTiTkq3w==');
         done();
       }
     });
