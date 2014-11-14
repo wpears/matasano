@@ -9,7 +9,7 @@ function init(seed){
   }
 }
 
-function getNumber() {
+function rand() {
   if(index === 0) generateNumbers();
   var y = state[index];
   y = (y ^ y >>> 11) >>> 0;
@@ -29,6 +29,11 @@ function generateNumbers(){
       state[i] = (state[i] ^ 2567483615) >>> 0;
     }
   }
+}
+
+module.exports = {
+  init:init,
+  rand:rand
 }
 
 

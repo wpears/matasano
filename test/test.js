@@ -235,6 +235,14 @@ describe('\n**********************Set 3**************************\n\n',function(
       }
     });
   });
+
+  describe('Question 21', function(){
+    it('implements MT19937 Mersenne twister',function(){
+      var twister = require('../three/enc/twister');
+      assert.equal((twister.init(1),twister.rand()),(twister.init(1),twister.rand()));
+      assert.equal((twister.init(2),twister.rand()),(twister.init(2),twister.rand()));
+    });
+  });
 });
 
 describe('\n*******************Modules***********************\n\n', function(){
