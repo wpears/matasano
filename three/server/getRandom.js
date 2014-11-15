@@ -8,18 +8,17 @@ function getRandom(cb){
   var randStamp = currTime + firstWait;
   var retTime = randStamp + secondWait;
   
-  console.log("Seed: %d", randStamp); 
   twister.init(randStamp);
   var rand = twister.rand();
   
-  nextCheck = checkTime.bind(null,retTime,rand,cb);
+  nextCheck = checkTime.bind(null,retTime,rand,cb,randStamp);
   return nextCheck();
 }
-function checkTime(retTime,rand,cb){
+function checkTime(retTime,rand,cb,stamp){
     if(Date.now() < retTime){
       return setTimeout(nextCheck,1)
     }else{
-      return cb(rand);
+      return cb(rand,stamp);
     }
   }
 module.exports = getRandom;

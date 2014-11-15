@@ -1,5 +1,57 @@
 var assert = require('assert');
 
+describe('\n*******************Modules***********************\n\n', function(){
+  describe('justText', function(){
+    it('takes non-ASCII characters out of a buffer', function(){
+      var justText = require('justText');    
+      var bufEqual = require('bufEqual');
+      var text = "Wyatt Pearsall"; 
+      var textBuf = new Buffer(text);
+      var junk = new Buffer(3);
+      junk[0] = 2;
+      junk[1] = 9;
+      junk[2] = 0;
+      var textCleaned = justText(Buffer.concat([textBuf,junk]));
+      assert(bufEqual(textCleaned,textBuf)); 
+    });
+  });
+  
+  describe('block ecb', function(){
+    it('performs ecb encryption on a single block', function(){
+      var enc = require('blockecb');
+      var buf = new Buffer("I'm back and I'm");
+      var bufEqual = require('bufEqual');
+      assert(bufEqual(enc(buf),new Buffer('CRIwqt4+szDbqkNY+I0qbD','base64')));
+    });
+  });
+  
+  describe('block cbc', function(){
+    it('performs cbc encryption on a single block', function(){
+      var enc = require('blockcbc');
+      var buf =  new Buffer('abraham lincoln!');
+      var bufEqual = require('bufEqual');
+      assert(bufEqual(enc(buf), new Buffer('GUA8Wra/mOKA4Tt7W2qUIw==','base64')));
+    });
+  });
+  
+  describe('ECB', function(){
+    it('ecb encryption and decryption', function(){
+      var enc = require('enc_ecb');
+      var dec = require('dec_ecb');
+      assert.equal("PEARSALLPEARSALL",dec(enc("PEARSALLPEARSALL")).toString()); 
+    });
+  });
+  
+  describe('CBC', function(){
+    it('cbc encryption and decryption', function(){
+      var enc = require('enc_cbc');
+      var dec = require('dec_cbc');
+      assert.equal("PEARSALLPEARSALL",dec(enc("PEARSALLPEARSALL")).toString()); 
+    });
+  });
+
+});
+
 describe('\n************************ Set 1 ************************\n\n', function(){
 
   describe('Question 1', function(){
@@ -214,7 +266,7 @@ describe('\n**********************Set 3**************************\n\n',function(
       assert.equal(justText(ctr(inp)).toString(),"Yo, VIP Let's kick it Ice, Ice, baby Ice, Ice, baby ");
     });
   });
-  describe('Question 19', function(){
+  /*describe('Question 19', function(){
     it('arduously and circuitously gets the key from repeated nonce CTR',function(done){
       var sub_ctr = require('../three/break/sub_ctr');
       sub_ctr('three/data/19.txt',cb);
@@ -234,7 +286,7 @@ describe('\n**********************Set 3**************************\n\n',function(
         done();
       }
     });
-  });
+  });*/
 
   describe('Question 21', function(){
     it('implements MT19937 Mersenne twister',function(){
@@ -243,56 +295,17 @@ describe('\n**********************Set 3**************************\n\n',function(
       assert.equal((twister.init(2),twister.rand()),(twister.init(2),twister.rand()));
     });
   });
+  
+  /*describe('Question 22', function(){
+    it('cracks an MT19937 seed',function(done){
+      var crack = require('../three/break/crackSeed.js');
+      this.timeout(80000); 
+      function checkSeeds(s1,s2){
+        assert.equal(s1,s2);
+        done();
+      }
+      crack(checkSeeds);
+    });
+  });*/
 });
 
-describe('\n*******************Modules***********************\n\n', function(){
-  describe('justText', function(){
-    it('takes non-ASCII characters out of a buffer', function(){
-      var justText = require('justText');    
-      var bufEqual = require('bufEqual');
-      var text = "Wyatt Pearsall"; 
-      var textBuf = new Buffer(text);
-      var junk = new Buffer(3);
-      junk[0] = 2;
-      junk[1] = 9;
-      junk[2] = 0;
-      var textCleaned = justText(Buffer.concat([textBuf,junk]));
-      assert(bufEqual(textCleaned,textBuf)); 
-    });
-  });
-  
-  describe('block ecb', function(){
-    it('performs ecb encryption on a single block', function(){
-      var enc = require('blockecb');
-      var buf = new Buffer("I'm back and I'm");
-      var bufEqual = require('bufEqual');
-      assert(bufEqual(enc(buf),new Buffer('CRIwqt4+szDbqkNY+I0qbD','base64')));
-    });
-  });
-  
-  describe('block cbc', function(){
-    it('performs cbc encryption on a single block', function(){
-      var enc = require('blockcbc');
-      var buf =  new Buffer('abraham lincoln!');
-      var bufEqual = require('bufEqual');
-      assert(bufEqual(enc(buf), new Buffer('GUA8Wra/mOKA4Tt7W2qUIw==','base64')));
-    });
-  });
-  
-  describe('ECB', function(){
-    it('ecb encryption and decryption', function(){
-      var enc = require('enc_ecb');
-      var dec = require('dec_ecb');
-      assert.equal("PEARSALLPEARSALL",dec(enc("PEARSALLPEARSALL")).toString()); 
-    });
-  });
-  
-  describe('CBC', function(){
-    it('cbc encryption and decryption', function(){
-      var enc = require('enc_cbc');
-      var dec = require('dec_cbc');
-      assert.equal("PEARSALLPEARSALL",dec(enc("PEARSALLPEARSALL")).toString()); 
-    });
-  });
-
-});
