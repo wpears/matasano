@@ -3,11 +3,12 @@ var twister = require('../enc/twister.js');
 var nextCheck;
 function getRandom(cb){
   var currTime = Date.now();
-  var firstWait = Math.random()*20000;
-  var secondWait = Math.random()*20000;
+  var firstWait = Math.random()*20000>>0;
+  var secondWait = Math.random()*20000>>0;
   var randStamp = currTime + firstWait;
   var retTime = randStamp + secondWait;
   
+  console.log("Seed: %d", randStamp); 
   twister.init(randStamp);
   var rand = twister.rand();
   
