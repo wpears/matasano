@@ -21,6 +21,10 @@ function rand() {
   return y;
 }
 
+function setState(newState){
+  return state = newState;
+}
+
 function generateNumbers(){
   for (var i = 0; i < 624; i++) {
     var y= (state[i] & 0x80000000)>>>0 + (state[(i+1)%624] & 0x7fffffff) >>> 0;
@@ -33,7 +37,8 @@ function generateNumbers(){
 
 module.exports = {
   init:init,
-  rand:rand
+  rand:rand,
+  setState:setState  
 }
 
 
